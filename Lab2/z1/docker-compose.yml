@@ -8,10 +8,16 @@ services:
         networks:
             squid_net_2:
                ipv4_address: 10.1.1.2
+               aliases:
+                 - proxy
             projektanci_net:
                 ipv4_address: 192.168.2.2
+                aliases:
+                  - proxy
             sekretarka_net:
                 ipv4_address: 192.168.3.2
+                aliases:
+                  - proxy
 
     prezes_laptop:
         image: appropriate/curl
@@ -59,7 +65,7 @@ services:
         networks:
             projektanci_net:
                ipv4_address: 192.168.2.3
-    
+
     programista:
         image: appropriate/curl
         entrypoint: sh -c "echo 'To access docker exec -it z1_programista_1 sh';tail -f /dev/null"
@@ -81,8 +87,8 @@ services:
         networks:
             sekretarka_net:
                ipv4_address: 192.168.3.3
-    
-    ksiegowa: 
+
+    ksiegowa:
         image: appropriate/curl
         entrypoint: sh -c "echo 'To access docker exec -it z1_ksiegowa_1 sh';tail -f /dev/null"
         networks:
