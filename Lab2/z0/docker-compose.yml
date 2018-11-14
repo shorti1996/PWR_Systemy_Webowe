@@ -4,12 +4,23 @@ services:
         build: ./proxy/
         volumes:
             - ./proxy/proxy.conf:/etc/squid/squid.conf
+        expose:
+            - "3128"
         networks:
             squid_net_2:
                ipv4_address: 10.1.0.2
+               aliases:
+                  - proxy
         cap_add:
             - NET_ADMIN
-        
+    client:
+        build: ./client/
+        tty: true
+        networks:
+            squid_net_2:
+               ipv4_address: 10.1.0.3
+               aliases:
+                  - client
 
 networks:
     squid_net_2:
@@ -17,3 +28,4 @@ networks:
         ipam:
           config:
             - subnet: 10.1.0.0/24
+    net:
